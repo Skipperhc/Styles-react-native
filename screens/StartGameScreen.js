@@ -5,12 +5,14 @@ import {
     Text,
     Button,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native';
 
 import Card from '../components/Card'
 import Colors from '../constants/colors'
 import Input from '../components/Input'
+import NumberContainer from '../components/NumberContainer'
 
 const StartGameScreen = props => {
 
@@ -24,22 +26,34 @@ const StartGameScreen = props => {
 
     const resetInputHandler = () => {
         setEnteredValue('');
+        setConfirmed(false)
     };
 
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue);
-        if(chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert(
+                'Número inválido',
+                'Deve ser um número inteiro de dois digitos',
+                [{ text: 'Okay', style: 'destructive', onPress: resetInputHandler }]);
             return;
         }
         setConfirmed(true);
         setSelectedNumber(chosenNumber);
         setEnteredValue('');
+        Keyboard.dismiss();
     };
 
     let confirnOutput;
 
-    if(confirmed) {
-        confirnOutput = <Text>Número escolhido: {selectedNumber}</Text>
+    if (confirmed) {
+        confirnOutput = (
+            <Card style={styles.summaryContainer}>
+                <Text>Número escolhido</Text>
+                <NumberContainer>{selectedNumber}</NumberContainer>
+                <Button title="Começar o jogo" onPress={() => props.onStartGame(selectedNumber)}/>
+            </Card>
+        );
     }
 
     return (
@@ -99,6 +113,10 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 110
+    },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center'
     }
 });
 
