@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Image } from 'react-native'
 
 import BodyText from '../components/BodyText'
 import TitleText from '../components/TitleText'
+import Colors from '../constants/colors'
 
 const GameOverScreen = props => {
     return (
@@ -10,14 +11,18 @@ const GameOverScreen = props => {
             <TitleText>O jogo acabou!</TitleText>
             <View style={styles.imageContainer}>
                 <Image
-                    // source={require('../assets/success.png')}
+                    // source={({uri: 'https://www.igrejauniversal.pt/wp-content/uploads/2018/06/as-4-leis-para-vencer-a-guerra-espiritual.jpg'})}
+                    source={require('../assets/success.png')}
                     fadeDuration={300}
-                    source={({uri: 'https://www.igrejauniversal.pt/wp-content/uploads/2018/06/as-4-leis-para-vencer-a-guerra-espiritual.jpg'})}
                     style={styles.image}
                     resizeMode="cover" />
             </View>
-            <BodyText>Numero de rodadas: {props.roundsNumber}</BodyText>
-            <BodyText>Numero escolhido: {props.userNumber}</BodyText>
+            <View style={styles.resultContainer}>
+                <BodyText style={styles.resultText}>
+                    O celular levou <Text style={styles.highligth}>{props.roundsNumber}</Text> tentativas para 
+                    adivinhar o numero <Text style={styles.highligth}>{props.userNumber}</Text>.
+            </BodyText>
+            </View>
             <Button title="Novo jogo" onPress={props.onRestart} />
         </View>
     );
@@ -41,6 +46,18 @@ const styles = StyleSheet.create({
         height: 300,
         overflow: 'hidden',
         marginVertical: 30
+    },
+    highligth: {
+        color: Colors.primary,
+        fontFamily: 'open-sans-bold'
+    },
+    resultContainer: {
+        marginHorizontal: 30,
+        marginVertical: 20
+    },
+    resultText: {
+        textAlign: 'center',
+        fontSize: 20
     }
 });
 
