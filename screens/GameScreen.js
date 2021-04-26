@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import MainButton from '../components/MainButton';
 import DefaultStyles from '../constants/default-styles';
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -24,10 +25,10 @@ const GameScreen = props => {
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
 
-    const {userChoice, onGameOver } = props;
+    const { userChoice, onGameOver } = props;
 
     useEffect(() => {
-        if(currentGuess === userChoice) {
+        if (currentGuess === userChoice) {
             onGameOver(rounds);
         }
     }, [currentGuess, userChoice, onGameOver]);
@@ -39,9 +40,9 @@ const GameScreen = props => {
                 'Não minta',
                 'Você sabe que isso está errado',
                 [{ text: 'Desculpa!', style: 'cancel' }]);
-                return;
+            return;
         }
-        if(direction === 'menor') {
+        if (direction === 'menor') {
             currentHigh.current = currentGuess;
         } else {
             currentLow.current = currentGuess;
@@ -56,8 +57,14 @@ const GameScreen = props => {
             <Text style={DefaultStyles.title}>Escolha do oponente</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <Button title="Menor" onPress={nextGuessHandler.bind(this, 'menor')} />
-                <Button title="Maior" onPress={nextGuessHandler.bind(this, 'maior')} />
+                <MainButton
+                    onPress={nextGuessHandler.bind(this, 'menor')}>
+                    Menor
+                </MainButton>
+                <MainButton
+                    onPress={nextGuessHandler.bind(this, 'maior')}>
+                    Maior
+                </MainButton>
 
             </Card>
         </View>
@@ -75,8 +82,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 20,
-        maxWidth: '80%',
-        width: 300
+        maxWidth: '90%',
+        width: 400
     }
 });
 
