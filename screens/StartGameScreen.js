@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold'
     },
     button: {
-        width: Dimensions.get('window').width / 3
+        width: Dimensions.get('window').width / 4
         // width: 110
     },
     summaryContainer: {
