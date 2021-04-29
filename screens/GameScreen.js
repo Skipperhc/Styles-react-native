@@ -4,8 +4,7 @@ import {
     Text, StyleSheet,
     Alert,
     FlatList,
-    Dimensions,
-    ScrollView
+    Dimensions
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -68,42 +67,40 @@ const GameScreen = props => {
     }
 
     return (
-        <ScrollView>
-            <View style={styles.screen}>
-                <Text style={DefaultStyles.title}>Escolha do oponente</Text>
-                <NumberContainer>{currentGuess}</NumberContainer>
-                <Card style={styles.buttonContainer}>
-                    <MainButton
-                        onPress={nextGuessHandler.bind(this, 'menor')}>
-                        <Ionicons
-                            name={'md-remove'}
-                            size={24}
-                            color="white"
-                        />
-                    </MainButton>
-                    <MainButton
-                        onPress={nextGuessHandler.bind(this, 'maior')}>
-                        <Ionicons
-                            name={'md-add'}
-                            size={24}
-                            color="white"
-                        />
-                    </MainButton>
+        <View style={styles.screen}>
+            <Text style={DefaultStyles.title}>Escolha do oponente</Text>
+            <NumberContainer>{currentGuess}</NumberContainer>
+            <Card style={styles.buttonContainer}>
+                <MainButton
+                    onPress={nextGuessHandler.bind(this, 'menor')}>
+                    <Ionicons
+                        name={'md-remove'}
+                        size={24}
+                        color="white"
+                    />
+                </MainButton>
+                <MainButton
+                    onPress={nextGuessHandler.bind(this, 'maior')}>
+                    <Ionicons
+                        name={'md-add'}
+                        size={24}
+                        color="white"
+                    />
+                </MainButton>
 
-                </Card>
-                <View style={styles.listContainer}>
-                    {/* <ScrollView contentContainerStyle={styles.list}>
+            </Card>
+            <View style={styles.listContainer}>
+                {/* <ScrollView contentContainerStyle={styles.list}>
                     {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
                 </ScrollView> */}
-                    <FlatList
-                        keyExtractor={(item) => item}
-                        data={pastGuesses}
-                        renderItem={renderListItem.bind(this, pastGuesses.length)}
-                        contentContainerStyle={styles.list}>
-                    </FlatList>
-                </View>
+                <FlatList
+                    keyExtractor={(item) => item}
+                    data={pastGuesses}
+                    renderItem={renderListItem.bind(this, pastGuesses.length)}
+                    contentContainerStyle={styles.list}>
+                </FlatList>
             </View>
-        </ScrollView>
+        </View>
     );
 
 }
