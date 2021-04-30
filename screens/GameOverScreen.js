@@ -32,9 +32,7 @@ const GameOverScreen = props => {
                     adivinhar o numero <Text style={styles.highligth}>{props.userNumber}</Text>.
             </BodyText>
                 </View>
-                <MainButton onPress={props.onRestart} >
-                    Novo jogo
-            </MainButton>
+                <MainButton onPress={props.onRestart}>Novo jogo</MainButton>
             </View>
         </ScrollView>
     );
@@ -44,7 +42,8 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 20
     },
     image: {
         width: '100%',
