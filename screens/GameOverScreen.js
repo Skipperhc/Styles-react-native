@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View,
     Text,
@@ -14,11 +14,27 @@ import MainButton from '../components/MainButton'
 import Colors from '../constants/colors'
 
 const GameOverScreen = props => {
+
+    const [imageSize, setImageSize] = useState(Dimensions.get('window').width * 0.7);
+    const [availableDeviceHeight, setAvailableDeviceHeight] = useState(Dimensions.get('window').height)
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setImageSize(Dimensions.get('window').width * 0.7);
+            setAvailableDeviceHeight(Dimensions.get('window').height);
+        }
+
+        Dimensions.addEventListener('change', updateLayout);
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    });
+
     return (
         <ScrollView>
             <View style={styles.screen}>
                 <TitleText>O jogo acabou!</TitleText>
-                <View style={styles.imageContainer}>
+                <View style={{ borderRadius: imageSize, width: imageSize, height: imageSize, ...styles.imageContainer }}>
                     <Image
                         // source={({uri: 'https://www.igrejauniversal.pt/wp-content/uploads/2018/06/as-4-leis-para-vencer-a-guerra-espiritual.jpg'})}
                         source={require('../assets/success.png')}
@@ -50,13 +66,10 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     imageContainer: {
-        borderRadius: Dimensions.get('window').width * 0.7 / 2,
         borderWidth: 3,
         borderColor: 'black',
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').width * 0.7,
         overflow: 'hidden',
-        marginVertical: Dimensions.get('window').height / 30
+        marginVertical: 10
     },
     highligth: {
         color: Colors.primary,
@@ -64,7 +77,7 @@ const styles = StyleSheet.create({
     },
     resultContainer: {
         marginHorizontal: 30,
-        marginVertical: Dimensions.get('window').width / 60
+        marginVertical: 10
     },
     resultText: {
         textAlign: 'center',
